@@ -42,7 +42,6 @@ export const actions = {
 
 export const mutations = {
     setCurrentHashTag(state, payload){
-        console.log("===="+payload.tags);
         state.totalTags = payload.tags;
     },
     addNewTag(state, payload){

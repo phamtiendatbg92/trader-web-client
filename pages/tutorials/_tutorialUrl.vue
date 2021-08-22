@@ -2,12 +2,12 @@
   <div class="main-tutorial">
     <span v-html="currentTut.content"/>
 
-    <!-- <v-chip class="ma-2" color="pink" label text-color="white">
+    <v-chip class="ma-2" color="pink" label text-color="white">
       <v-icon left v-for="(item, index) in currentTut.tags" :key="index">
         mdi-label
       </v-icon>
       {{ item }}
-    </v-chip> -->
+    </v-chip>
   </div>
 </template>
 
