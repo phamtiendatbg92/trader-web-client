@@ -1,7 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  ssr:false,
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - TraderWebsite',
@@ -45,19 +45,26 @@ export default {
   modules: [
     '@nuxtjs/axios'
   ],
-  axios: {
-    baseURL: 'http://localhost:5000/api/v1/', // Used as fallback if no runtime config is provided
+  env: {
+    serverURL: process.env.SERVER_URL || 'localhost:5000',
   },
   publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL
-    }
+    serverURL: process.env.SERVER_URL || 'localhost:5000',
   },
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL
-    }
+  axios: {
+    //baseURL: "process.env.SERVER_URL+'api/v1/' || 'http://localhost:5000/api/v1/'", // Used as fallback if no runtime config is provided
+    baseURL: process.env.SERVER_URL + "/api/v1/" || "'http://localhost:5000/api/v1/'", // Used as fallback if no runtime config is provided
   },
+  // publicRuntimeConfig: {
+  //   axios: {
+  //     browserBaseURL: process.env.BROWSER_BASE_URL
+  //   }
+  // },
+  // privateRuntimeConfig: {
+  //   axios: {
+  //     baseURL: process.env.BASE_URL
+  //   }
+  // },
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],

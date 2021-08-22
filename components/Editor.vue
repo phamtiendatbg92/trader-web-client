@@ -130,8 +130,7 @@ export default {
       let self = this;
       this.$axios.$get("get-hashtag").then(function (data) {
         if (data != null) {
-          console.log(data);
-          self.totalTags = data;
+          self.totalTags = data.tags;
         }
       });
     },

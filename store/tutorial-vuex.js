@@ -38,7 +38,8 @@ export const mutations = {
         state.tutorialList = payload
     },
     setCurrentTut(state, payload) {
-        payload.content = payload.content.replace("SERVER_PUBLIC_KEY", "http://localhost:5000/images/");
+        
+        payload.content = payload.content.replace("SERVER_PUBLIC_KEY",  process.env.serverURL + '/images/');
         console.log(payload);
         state.currentTut = payload;
     },
