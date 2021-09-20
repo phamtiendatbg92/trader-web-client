@@ -4,11 +4,11 @@
       <v-list-item
         v-for="(item, i) in tutorialList"
         :key="i"
-        :to="'tutorials/' + item.url"
+        :to="'tutorials/' + item.Url"
         router
         exact
       >
-        <v-list-item-title v-text="item.title" />
+        <v-list-item-title v-text="item.Title" />
       </v-list-item>
     </v-list>
   </div>
@@ -21,10 +21,10 @@ export default {
     return {};
   },
   computed: {
-    ...mapGetters("tutorial-vuex", ["tutorialList"]),
+    ...mapGetters("tutorialStore", ["tutorialList"]),
   },
   methods: {
-    ...mapActions("tutorial-vuex", ["getListTutorial"]),
+    ...mapActions("tutorialStore", ["getListTutorial"]),
   },
   mounted: function () {
     this.getListTutorial();

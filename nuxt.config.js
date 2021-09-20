@@ -43,17 +43,18 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
   ],
+  auth: {
+    // Options
+  },
   env: {
     serverURL: process.env.SERVER_URL || 'localhost:5000',
   },
-  publicRuntimeConfig: {
-    serverURL: process.env.SERVER_URL || 'localhost:5000',
-  },
   axios: {
-    //baseURL: "process.env.SERVER_URL+'api/v1/' || 'http://localhost:5000/api/v1/'", // Used as fallback if no runtime config is provided
-    baseURL: process.env.SERVER_URL + "/api/v1/" || "'http://localhost:5000/api/v1/'", // Used as fallback if no runtime config is provided
+    baseURL: process.env.BASE_API || 'http://localhost:5000/api/v1/', // Used as fallback if no runtime config is provided
+    // baseURL: serverURL + "/api/v1/" || "'http://localhost:5000/api/v1/'", // Used as fallback if no runtime config is provided
   },
   // publicRuntimeConfig: {
   //   axios: {

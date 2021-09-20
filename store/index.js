@@ -11,6 +11,9 @@ export const getters = {
     dialogStatus: state => {
         return state.dialogInfo;
     },
+    isShownWaitingDlg: state =>{
+        return state.isShownWaitingDlg;
+    }
     
 }
 
@@ -20,6 +23,9 @@ export const actions = {
     },
     closeDialog(context) {
         context.commit('closeDialog');
+    },
+    showWaitingDialog(context, isShow){
+        context.commit('showWaitingDialog', isShow);
     }
 }
 
@@ -31,5 +37,8 @@ export const mutations = {
     },
     closeDialog(state){
         state.dialogInfo.isShown = false;
+    },
+    showWaitingDialog(state, isShow){
+        state.isShownWaitingDlg = isShow;
     }
 }

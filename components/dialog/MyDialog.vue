@@ -3,10 +3,9 @@
     <v-dialog v-model="dialogStatus.isShown" persistent max-width="290">
       <v-card>
         <v-card-title class="text-h5">
-           {{ dialogStatus.title }}
+          {{ dialogStatus.title }}
         </v-card-title>
-        <v-card-text>
-          {{ dialogStatus.content }}
+        <v-card-text v-html="dialogStatus.content">
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -20,6 +19,7 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
+  name: "MyDialog",
   computed: {
     ...mapGetters(["dialogStatus"]),
   },

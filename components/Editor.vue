@@ -3,11 +3,18 @@
     <v-row>
       <v-col cols="10">
         <div>
-          Title <v-text-field v-model="newTutorial.title"></v-text-field>
+          <h1>Title</h1>
+          <v-text-field
+            :value="currentTut.Title"
+            @input="updateTitle"
+            ref="currentTitle"
+          ></v-text-field>
           <!-- Use the component in the right place of the template -->
           <h1>Content bài viết</h1>
           <tiptap-vuetify
-            v-model="newTutorial.content"
+            :value="currentTut.Content"
+            @input="updateContent"
+            ref="currentContent"
             :extensions="extensions"
             :toolbar-attributes="{ color: 'red' }"
           />
@@ -15,20 +22,28 @@
       </v-col>
       <v-col cols="2">
         <v-select
-          v-model="newTutorial.tags"
+          ref="currentTag"
+          :value="currentTut.Tag"
+          @change="updateTag"
           :items="totalTags"
+          clearable
           label="Select Hash Tag"
           chips
           multiple
         ></v-select>
 
-        <h2>Add new Tag</h2>
-        <v-text-field v-model="newTag"></v-text-field>
-        <v-btn @click="addTag">Add</v-btn>
+        <div class="mt-10">
+          <h2>Add new Tag</h2>
+          <v-text-field v-model="newTag"></v-text-field>
+          <v-btn @click="addTag">Add</v-btn>
+        </div>
       </v-col>
     </v-row>
     <v-row>
-      <v-btn @click="submitFile">submit</v-btn>
+      <v-col>
+        <v-btn @click="submitFile">submit</v-btn>
+        <v-btn @click="test">test</v-btn>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -94,11 +109,33 @@ export default {
     totalTags: [],
     newTag: "",
   }),
+  props: {
+    isUpload: Boolean,
+  },
+  computed: {
+    ...mapGetters("tutorialStore", ["currentTut"]),
+  },
   methods: {
-    ...mapActions(["showDialog"]),
+    ...mapActions("tutorialStore", ["uploadNewTutorial", "updateTutorial", "clearCurrentTut"]),
+    ...mapActions(["showDialog", "showWaitingDialog"]),
+    test(){
+      this.clearCurrentTut();
+    },
+    updateTitle(e) {
+      this.$store.commit("tutorialStore/updateTitle", e);
+    },
+    updateContent(e) {
+      this.$store.commit("tutorialStore/updateContent", e);
+    },
+    updateTag(e) {
+      this.$store.commit("tutorialStore/updateTag", e);
+    },
     ValidateAllFields() {
-      console.log(this.newTutorial.title);
-      if (this.newTutorial.title == "") {
+      var title = this.currentTut.Title.trim();
+      title = title.replace(/ +/g, " ");
+      // apply to store
+      this.updateTitle(title);
+      if (title === "") {
         this.showDialog({
           title: "Invalid title",
           content: "Vui lòng nhập title !",
@@ -108,29 +145,35 @@ export default {
       return true;
     },
     submitFile() {
-      if (!this.ValidateAllFields()) {
-        console.log("validate failt");
-        return;
+      this.showWaitingDialog(true);
+      if (this.ValidateAllFields()) {
+        if (this.isUpload) {
+          this.uploadNewTutorial();
+        } else {
+          this.updateTutorial();
+        }
+        
       }
-      this.$axios
-        .$post("upload-new-post", this.newTutorial)
-        .then(function () {
-          console.log("SUCCESSS");
-        })
-        .catch(function () {
-          console.log("ERROR");
-        });
     },
     addTag: function () {
       if (this.newTag != "") {
-        this.totalTags.push(this.newTag);
+        if (!this.totalTags.includes(this.newTag)) {
+          // add
+          this.totalTags.push(this.newTag);
+          this.newTag = "";
+        } else {
+          this.showDialog({
+            title: "Error",
+            content: "Tag existed.<br/>Please use another name.",
+          });
+        }
       }
     },
     getHashTags: function () {
       let self = this;
       this.$axios.$get("get-hashtag").then(function (data) {
         if (data != null) {
-          self.totalTags = data.tags;
+          self.totalTags = data.Tags;
         }
       });
     },
@@ -141,8 +184,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .ProseMirror {
   padding: 10px !important;
+}
+img{
+  width: 100%;
 }
 </style>
