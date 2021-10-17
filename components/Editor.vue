@@ -5,14 +5,14 @@
         <div>
           <h1>Title</h1>
           <v-text-field
-            :value="currentTut.Title"
+            :value="currentTut.title"
             @input="updateTitle"
             ref="currentTitle"
           ></v-text-field>
           <!-- Use the component in the right place of the template -->
           <h1>Content bài viết</h1>
           <tiptap-vuetify
-            :value="currentTut.Content"
+            :value="currentTut.content"
             @input="updateContent"
             ref="currentContent"
             :extensions="extensions"
@@ -23,7 +23,7 @@
       <v-col cols="2">
         <v-select
           ref="currentTag"
-          :value="currentTut.Tag"
+          :value="currentTut.tags"
           @change="updateTag"
           :items="totalTags"
           clearable
@@ -131,7 +131,7 @@ export default {
       this.$store.commit("tutorialStore/updateTag", e);
     },
     ValidateAllFields() {
-      var title = this.currentTut.Title.trim();
+      var title = this.currentTut.title.trim();
       title = title.replace(/ +/g, " ");
       // apply to store
       this.updateTitle(title);
@@ -171,9 +171,9 @@ export default {
     },
     getHashTags: function () {
       let self = this;
-      this.$axios.$get("get-hashtag").then(function (data) {
+      this.$axios.$get("tutorial/get-hashtag").then(function (data) {
         if (data != null) {
-          self.totalTags = data.Tags;
+          self.totalTags = data;
         }
       });
     },

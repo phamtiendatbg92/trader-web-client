@@ -13,13 +13,13 @@
             v-for="(item, i) in tutorialList"
             :key="i"
             router
-            :to="'TutorialManager/' + item.Url"
+            :to="'TutorialManager/' + item.url"
             exact
           >
             <v-list-item-action>
-              <v-btn @click.prevent="deleteItem(item.Id)">Delete</v-btn>
+              <v-btn @click.prevent="deleteItem(item.id)">Delete</v-btn>
             </v-list-item-action>
-            <v-list-item-title v-text="item.Title" />
+            <v-list-item-title v-text="item.title" />
           </v-list-item>
         </v-list>
       </v-col>

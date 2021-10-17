@@ -47,7 +47,33 @@ export default {
     '@nuxtjs/auth-next'
   ],
   auth: {
-    // Options
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'access_token',
+          maxAge: 1800,
+          global: true,
+          // type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30
+        },
+        user: {
+          property: 'user',
+         // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh', method: 'post' },
+          user: { url: '/auth/user', method: 'get' },
+          logout: { url: '/auth/logout', method: 'delete' }
+        },
+        // autoLogout: false
+      }
+    }
   },
   env: {
     serverURL: process.env.SERVER_URL || 'localhost:5000',
@@ -79,7 +105,32 @@ export default {
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
-          success: colors.green.accent3
+          success: colors.green.accent3,
+          test : "#1E1E1E",
+        },
+        light: {
+          primary: "#14C6FF",
+          secondary: "#424242",
+          accent: "#82B1FF",
+          error: "#FF5252",
+          info: "#2196F3",
+          success: "#4CAF50",
+          warning: "#FFC107",
+          lightblue: "#14c6FF",
+          yellow: "#FFCF00",
+          pink: "#FF1976",
+          orange: "#FF8657",
+          magenta: "#C33AFC",
+          darkblue: "#1E2D56",
+          gray: "#909090",
+          neutralgray: "#9BA6C1",
+          green: "#2ED47A",
+          red: "#FF5c4E",
+          darkblueshade: "#308DC2",
+          lightgray: "#BDBDBD",
+          lightpink: "#FFCFE3",
+          white: "#FFFFFF",
+          test : "#2ED47A",
         }
       }
     }

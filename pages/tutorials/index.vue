@@ -4,11 +4,11 @@
       <v-list-item
         v-for="(item, i) in tutorialList"
         :key="i"
-        :to="'tutorials/' + item.Url"
+        :to="'tutorials/' + item.url"
         router
         exact
       >
-        <v-list-item-title v-text="item.Title" />
+        <v-list-item-title v-text="item.title" />
       </v-list-item>
     </v-list>
   </div>

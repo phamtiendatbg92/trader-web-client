@@ -32,6 +32,13 @@
         @click="$router.push('/')"
       />
       <v-spacer />
+      <div v-if="$auth.loggedIn">
+        logged in as: {{$auth.user.email}}
+        <v-btn @click="$auth.logout()">logout</v-btn>
+      </div>
+      <div v-else>
+        <v-btn to="login"> login </v-btn>
+      </div>
       <v-switch
         v-model="$vuetify.theme.dark"
         inset
@@ -96,5 +103,10 @@ export default {
       title: "Trader House",
     };
   },
+  methods:{
+    logout(){
+      this.$axios.$post("")
+    }
+  }
 };
 </script>
