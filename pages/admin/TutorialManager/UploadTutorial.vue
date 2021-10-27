@@ -3,7 +3,6 @@
     <v-col>
       <h1>Upload New Tutorial</h1>
     </v-col>
-
     <Editor :isUpload="true" />
   </div>
 </template>

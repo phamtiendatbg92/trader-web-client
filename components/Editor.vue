@@ -7,7 +7,14 @@
           <v-text-field
             :value="currentTut.title"
             @input="updateTitle"
-            ref="currentTitle"
+          ></v-text-field>
+          <h1>
+            Meta
+          </h1>
+          <v-text-field
+            :value="currentTut.meta"
+            @input="updateMeta"
+            counter="25"
           ></v-text-field>
           <!-- Use the component in the right place of the template -->
           <h1>Content bài viết</h1>
@@ -123,6 +130,9 @@ export default {
     },
     updateTitle(e) {
       this.$store.commit("tutorialStore/updateTitle", e);
+    },
+    updateMeta(e) {
+      this.$store.commit("tutorialStore/updateMeta", e);
     },
     updateContent(e) {
       this.$store.commit("tutorialStore/updateContent", e);

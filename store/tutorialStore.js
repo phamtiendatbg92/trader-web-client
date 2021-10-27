@@ -166,7 +166,11 @@ export const mutations = {
         }
     },
     setComment(state, comment) {
-        state.commentList = [...comment];
+        if(comment == null){
+            state.commentList = [];
+        }else{
+            state.commentList = comment;
+        }
     },
     pushComment(state, commentObj) {
         var temp = {
@@ -205,6 +209,9 @@ export const mutations = {
     },
     setCurrentTut(state, payload) {
         state.currentTut = payload;
+    },
+    updateMeta(state, payload) {
+        state.currentTut.description = payload;
     },
     updateTitle(state, payload) {
         state.currentTut.title = payload;

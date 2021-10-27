@@ -37,7 +37,8 @@
         <v-btn @click="$auth.logout()">logout</v-btn>
       </div>
       <div v-else>
-        <v-btn to="login"> login </v-btn>
+        <v-btn router to="/login"> login </v-btn>
+        
       </div>
       <v-switch
         v-model="$vuetify.theme.dark"
